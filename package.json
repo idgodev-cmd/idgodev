@@ -12,6 +12,8 @@
     "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.6.1",
     "@astrojs/tailwind": "^6.0.2",
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/space-grotesk": "^5.2.10",
     "@phosphor-icons/web": "^2.1.2",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.1.18",

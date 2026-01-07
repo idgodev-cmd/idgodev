@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+
+// Sort by Date & Slice 3
+const sortedProjects = projects.sort((a, b) => {
+    const dateA = a.data.pubDate ? new Date(a.data.pubDate).valueOf() : 0;
+    const dateB = b.data.pubDate ? new Date(b.data.pubDate).valueOf() : 0;
+    return dateB - dateA;
+}).slice(0, 3);
+---
+
+<section id="work" class="mb-32">
+    <h2 class="font-display text-4xl md:text-5xl font-bold mb-12">Karya Pilihan</h2>
+    
+    <div class="space-y-20">
+        {sortedProjects.map((project) => (
+            <a href={`/work/${project.slug}`} class="group block cursor-pointer">
+                <!-- Image Wrapper -->
+                <div class="aspect-video w-full bg-zinc-200 dark:bg-zinc-800 rounded-3xl overflow-hidden relative mb-6 border border-zinc-200 dark:border-zinc-800">
+                    <img 
+                        src={project.data.heroImage || 'https://placehold.co/800x500?text=Project'} 
+                        alt={project.data.title} 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter grayscale group-hover:grayscale-0"
+                    />
+                    <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
+                </div>
+
+                <!-- Content Header -->
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="text-3xl font-display font-bold mb-2 text-zinc-900 dark:text-white group-hover:text-brand-500 transition-colors">
+                            {project.data.title}
+                        </h3>
+                        <div class="flex gap-2 text-sm text-zinc-500">
+                            {/* FIX: Cek dulu apakah techStack ada isinya sebelum akses index [0] */}
+                            {project.data.techStack && project.data.techStack.length > 0 ? (
+                                <>
+                                    <span>{project.data.techStack[0]}</span>
+                                    {project.data.techStack[1] && (
+                                        <>
+                                            <span>•</span> 
+                                            <span>{project.data.techStack[1]}</span>
+                                        </>
+                                    )}
+                                </>
+                            ) : (
+                                <span>Development</span>
+                            )}
+                        </div>
+                    </div>
+                    
+                    <div class="w-12 h-12 rounded-full border border-zinc-300 dark:border-zinc-700 flex items-center justify-center group-hover:bg-brand-500 group-hover:text-white group-hover:border-brand-500 transition-all">
+                        <i class="ph ph-arrow-right text-xl"></i>
+                    </div>
+                </div>
+            </a>
+        ))}
+    </div>
+</section>

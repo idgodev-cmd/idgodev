@@ -4,50 +4,39 @@ import Navbar from '../components/layout/Navbar.astro';
 import Footer from '../components/layout/Footer.astro';
 import '../styles/global.css';
 
+// FIX ERROR: Import Icons di sini (JS Import), bukan di CSS
+import '@phosphor-icons/web/regular';
+import '@phosphor-icons/web/fill';
+
 interface Props {
 	title: string;
 	description: string;
     image?: string;
-    ogType?: 'website' | 'article';
 }
 
-const { title, description, image, ogType } = Astro.props;
+const { title, description, image } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="id" class="scroll-smooth">
 	<head>
-		<HeadSEO 
-            title={title} 
-            description={description} 
-            image={image}
-            ogType={ogType}
-        />
-        <!-- Script Anti-FOUC (Flash of Unstyled Content) -->
+		<HeadSEO title={title} description={description} image={image} />
 		<script is:inline>
-			const theme = (() => {
-				if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-					return localStorage.getItem('theme');
-				}
-				if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-					return 'dark';
-				}
-				return 'light';
-			})();
-		
-			if (theme === 'dark') {
+			if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
 				document.documentElement.classList.add('dark');
 			} else {
 				document.documentElement.classList.remove('dark');
 			}
 		</script>
 	</head>
-	<body class="bg-gray-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 transition-colors duration-300 font-sans pb-24 md:pb-0 flex flex-col min-h-screen">
+	<body class="bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 transition-colors duration-300 font-sans selection:bg-brand-500 selection:text-white pb-32">
 		
+        <div class="bg-noise"></div>
+        
         <Navbar />
 		
-        <main class="flex-grow max-w-6xl w-full mx-auto px-6 pt-20 md:pt-32">
-			<slot /> <!-- Konten Halaman Masuk Sini -->
+        <main class="max-w-7xl mx-auto px-6 pt-32 animate-fade-in relative z-10">
+			<slot /> 
 		</main>
 		
         <Footer />

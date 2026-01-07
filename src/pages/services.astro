@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ServicesComponent from '../components/Services.astro';
+---
+
+<BaseLayout title="Layanan" description="Solusi digital komprehensif untuk kebutuhan bisnis Anda.">
+    
+    <!-- Wrapper dengan padding agar tidak tertutup navbar -->
+    <div class="pt-10 md:pt-20">
+        
+        <!-- Header Halaman -->
+        <div class="text-center mb-16 px-4">
+            <h1 class="font-display text-5xl md:text-7xl font-bold mb-6 text-zinc-900 dark:text-white">
+                Solusi <span class="text-brand-500">Digital.</span>
+            </h1>
+            <p class="text-xl text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto">
+                Pendekatan holistik untuk membangun produk digital yang tidak hanya terlihat bagus, tetapi juga berfungsi dengan sempurna.
+            </p>
+        </div>
+
+        <!-- Komponen Bento Grid (Reuse) -->
+        <ServicesComponent />
+        
+        <!-- FAQ Section (Tambahan Pemanis) -->
+        <section class="mb-32 max-w-3xl mx-auto px-4">
+            <h2 class="font-display text-3xl font-bold mb-8 text-center text-zinc-900 dark:text-white">Pertanyaan Umum</h2>
+            <div class="space-y-4">
+                <div class="p-6 bg-zinc-50 dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 hover:border-brand-500/50 transition-colors">
+                    <h3 class="font-bold text-zinc-900 dark:text-white mb-2">Berapa lama pengerjaan website?</h3>
+                    <p class="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed">
+                        Tergantung kompleksitas. Landing page standar biasanya selesai dalam 3-5 hari kerja. Untuk website full custom atau toko online bisa memakan waktu 2-4 minggu.
+                    </p>
+                </div>
+                <div class="p-6 bg-zinc-50 dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 hover:border-brand-500/50 transition-colors">
+                    <h3 class="font-bold text-zinc-900 dark:text-white mb-2">Apakah termasuk domain & hosting?</h3>
+                    <p class="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed">
+                        Saya bisa membantu setup hingga live, namun biaya sewa domain & hosting biasanya ditanggung klien agar Anda memiliki akses penuh dan kepemilikan aset tersebut.
+                    </p>
+                </div>
+                <div class="p-6 bg-zinc-50 dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 hover:border-brand-500/50 transition-colors">
+                    <h3 class="font-bold text-zinc-900 dark:text-white mb-2">Apakah ada garansi revisi?</h3>
+                    <p class="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed">
+                        Tentu! Setiap paket sudah termasuk 2-3x sesi revisi mayor. Revisi minor (typo, ganti warna dikit) biasanya saya berikan gratis selama masih dalam batas wajar.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Bawah -->
+        <div class="mb-20 text-center bg-zinc-900 dark:bg-zinc-100 rounded-3xl p-12 mx-4 relative overflow-hidden">
+            <div class="relative z-10">
+                <h2 class="font-display text-3xl font-bold mb-4 text-white dark:text-zinc-900">Butuh solusi custom?</h2>
+                <p class="text-zinc-400 dark:text-zinc-600 mb-8">Mari diskusikan ide gila Anda yang belum ada di daftar paket.</p>
+                <a href="mailto:hello@idgo.dev" class="inline-block px-8 py-3 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white rounded-full font-bold hover:scale-105 transition-transform shadow-lg">
+                    Hubungi Saya
+                </a>
+            </div>
+            <!-- Background Decoration -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-brand-500/20 rounded-full blur-[80px]"></div>
+        </div>
+
+    </div>
+</BaseLayout>

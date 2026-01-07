@@ -1,0 +1,26 @@
+---
+const skills = [
+    "REACT", "ASTRO", "TYPESCRIPT", "TAILWIND", "WEB DESIGN", "BRANDING",
+    "REACT", "ASTRO", "TYPESCRIPT", "TAILWIND", "WEB DESIGN", "BRANDING" 
+];
+---
+
+<div class="w-full overflow-hidden border-y border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900/50 py-6 mb-32 -mx-6 md:-mx-0 md:rounded-2xl relative">
+    <div class="flex animate-marquee gap-12 whitespace-nowrap">
+        {skills.map((skill, index) => (
+            <span class={`text-2xl font-display font-bold ${index % 2 === 0 ? 'text-zinc-400' : 'text-zinc-900 dark:text-white'}`}>
+                {skill}
+            </span>
+        ))}
+        <!-- Duplikasi agar looping mulus -->
+        {skills.map((skill, index) => (
+            <span class={`text-2xl font-display font-bold ${index % 2 === 0 ? 'text-zinc-400' : 'text-zinc-900 dark:text-white'}`}>
+                {skill}
+            </span>
+        ))}
+    </div>
+    
+    <!-- Fade Effect di Kiri Kanan -->
+    <div class="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-zinc-50 dark:from-zinc-950 to-transparent z-10 hidden md:block"></div>
+    <div class="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-zinc-50 dark:from-zinc-950 to-transparent z-10 hidden md:block"></div>
+</div>

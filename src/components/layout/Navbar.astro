@@ -1,99 +1,266 @@
 ---
-// Helper untuk mengecek active state menu
+import { roadmapData } from '../../data/roadmap';
+
+// Helper untuk active state
 const pathname = new URL(Astro.request.url).pathname;
-const currentPath = pathname.slice(1); // remove the first "/"
 ---
 
-<!-- DESKTOP NAVBAR (Hidden on Mobile) -->
-<nav class="hidden md:flex fixed top-0 w-full z-50 glass-panel transition-colors">
-    <div class="max-w-6xl mx-auto px-6 h-16 w-full flex items-center justify-between">
+<!-- ================= DESKTOP NAV ================= -->
+<!-- FIX: pointer-events-none di container luar agar area kosong tidak memblokir klik -->
+<nav class="hidden md:flex fixed top-6 left-0 right-0 z-[100] justify-center pointer-events-none">
+    <!-- FIX: pointer-events-auto di elemen dalam agar menu & tombol BISA diklik -->
+    <div class="glass-panel bg-white/80 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 rounded-full px-6 py-3 flex items-center gap-8 shadow-xl shadow-black/5 relative pointer-events-auto">
         <!-- Logo -->
-        <a href="/" class="text-xl font-bold tracking-tight flex items-center gap-2">
-            <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-brand-500/20">
-                <span class="font-mono font-bold text-sm">ID</span>
-            </div>
-            <span>IDGO<span class="text-zinc-400">.dev</span></span>
+        <a href="/" class="font-display font-bold text-lg tracking-tight hover:scale-105 transition-transform">
+            idgo<span class="text-brand-500">.</span>
         </a>
         
-        <!-- Menu -->
-        <div class="flex gap-8 text-sm font-medium text-zinc-500 dark:text-zinc-400">
-            <a href="/" class={`hover:text-brand-600 dark:hover:text-white transition-colors ${pathname === '/' ? 'text-brand-600 dark:text-white font-bold' : ''}`}>Home</a>
-            <a href="/work" class={`hover:text-brand-600 dark:hover:text-white transition-colors ${currentPath.startsWith('work') ? 'text-brand-600 dark:text-white font-bold' : ''}`}>Work</a>
-            <a href="/blog" class={`hover:text-brand-600 dark:hover:text-white transition-colors ${currentPath.startsWith('blog') ? 'text-brand-600 dark:text-white font-bold' : ''}`}>Blog</a>
-            <a href="/about" class={`hover:text-brand-600 dark:hover:text-white transition-colors ${currentPath.startsWith('about') ? 'text-brand-600 dark:text-white font-bold' : ''}`}>About</a>
+        <div class="h-4 w-px bg-zinc-300 dark:bg-zinc-700"></div>
+        
+        <!-- Menu Links -->
+        <div class="flex gap-6 text-sm font-medium text-zinc-600 dark:text-zinc-400">
+            <a href="/work" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Portofolio</a>
+            <a href="/services" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Layanan</a>
+            <a href="/blog" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Blog</a>
         </div>
-
-        <!-- Right Actions -->
-        <div class="flex items-center gap-4">
-            <!-- Theme Toggle Button (Inline) -->
-            <button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors text-zinc-600 dark:text-zinc-400">
-                <i class="ph ph-sun text-lg hidden dark:block"></i>
-                <i class="ph ph-moon text-lg block dark:hidden"></i>
+        
+        <div class="h-4 w-px bg-zinc-300 dark:bg-zinc-700"></div>
+        
+        <!-- Actions -->
+        <div class="flex items-center gap-2">
+            <!-- Theme Toggle -->
+            <button id="theme-toggle-desktop" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors" aria-label="Ganti Tema">
+                <i class="ph ph-moon text-lg theme-icon"></i>
             </button>
-            <a href="mailto:hello@idgo.dev" class="bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 px-5 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity">
-                Contact
-            </a>
+
+            <!-- Roadmap Bell -->
+            <div class="relative">
+                <button id="roadmap-btn-desk" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors relative cursor-pointer" aria-label="Update Terbaru">
+                    <i class="ph ph-bell text-lg"></i>
+                    <!-- Dot Merah -->
+                    <span class="absolute top-1 right-2 w-2 h-2 bg-red-500 rounded-full border border-white dark:border-zinc-900 animate-pulse"></span>
+                </button>
+                
+                <!-- DROPDOWN DESKTOP -->
+                <div id="roadmap-dropdown-desk" class="hidden absolute top-14 right-0 w-80 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl p-4 z-[110]">
+                    <div class="flex justify-between items-center mb-4 pb-2 border-b border-zinc-100 dark:border-zinc-800">
+                        <h3 class="font-display font-bold text-sm text-zinc-900 dark:text-white">Update Terbaru</h3>
+                        <span class="text-[10px] bg-brand-100 dark:bg-brand-900 text-brand-600 dark:text-brand-300 px-2 py-0.5 rounded-full font-bold">{roadmapData.status}</span>
+                    </div>
+                    
+                    <div class="space-y-4 max-h-[60vh] overflow-y-auto custom-scrollbar">
+                        <!-- In Progress -->
+                        <div>
+                            <h4 class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Sedang Dikerjakan</h4>
+                            {roadmapData.inProgress.map(item => (
+                                <div class="flex items-start gap-3 p-2 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 mb-2 last:mb-0">
+                                    <div class="mt-1.5 w-2 h-2 rounded-full bg-amber-500 animate-pulse flex-shrink-0"></div>
+                                    <div>
+                                        <p class="text-sm font-bold leading-tight text-zinc-900 dark:text-white">{item.title}</p>
+                                        <p class="text-xs text-zinc-500 mt-1">{item.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        
+                        <!-- Completed -->
+                        <div>
+                            <h4 class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Selesai</h4>
+                            <ul class="space-y-2">
+                                {roadmapData.completed.map(item => (
+                                    <li class="flex items-start gap-3 text-sm text-zinc-600 dark:text-zinc-400">
+                                        <i class="ph-fill ph-check-circle text-green-500 mt-0.5 flex-shrink-0"></i>
+                                        <span>{item}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </nav>
 
-<!-- MOBILE TOP BAR (Logo + Theme) -->
-<div class="md:hidden fixed top-0 w-full z-50 glass-panel px-6 h-14 flex items-center justify-between transition-colors">
-    <a href="/" class="font-bold text-lg flex items-center gap-2">
-            <div class="w-6 h-6 bg-brand-600 rounded flex items-center justify-center text-white">
-            <span class="font-mono font-bold text-[10px]">ID</span>
-        </div>
-        IDGO.dev
-    </a>
-    <button id="theme-toggle-mobile" class="p-2 text-zinc-600 dark:text-zinc-400">
-        <i class="ph ph-sun text-lg hidden dark:block"></i>
-        <i class="ph ph-moon text-lg block dark:hidden"></i>
-    </button>
+<!-- ================= MOBILE ELEMENTS ================= -->
+
+<!-- 1. MOBILE TOP BAR -->
+<div class="md:hidden fixed top-0 w-full z-[100] flex justify-between items-center p-6 bg-zinc-50/90 dark:bg-zinc-950/90 backdrop-blur-md border-b border-zinc-200/50 dark:border-zinc-800/50 transition-colors">
+    <a href="/" class="font-display font-bold text-xl text-zinc-900 dark:text-white">idgo<span class="text-brand-500">.</span></a>
+    
+    <div class="flex items-center gap-2">
+        <button id="theme-toggle-mobile" class="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-900 flex items-center justify-center text-zinc-900 dark:text-white transition-colors">
+            <i class="ph ph-moon text-xl theme-icon"></i>
+        </button>
+        <button id="roadmap-btn-mobile" class="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-900 flex items-center justify-center relative text-zinc-900 dark:text-white transition-colors">
+            <i class="ph ph-bell text-xl"></i>
+            <span class="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full border border-white dark:border-zinc-900 animate-pulse"></span>
+        </button>
+    </div>
 </div>
 
-<!-- MOBILE BOTTOM NAV (App Style with Icons) -->
-<div class="md:hidden fixed bottom-0 w-full bg-white/90 dark:bg-zinc-950/90 backdrop-blur-lg border-t border-zinc-200 dark:border-zinc-800 flex justify-around items-center h-20 z-50 pb-2 transition-colors">
-    <a href="/" class={`flex flex-col items-center gap-1 p-2 transition-colors ${pathname === '/' ? 'text-brand-600 dark:text-white' : 'text-zinc-500 dark:text-zinc-400'}`}>
-        <i class={`text-2xl ${pathname === '/' ? 'ph-fill ph-house' : 'ph ph-house'}`}></i>
-        <span class="text-[10px] font-bold">Home</span>
-    </a>
-    <a href="/work" class={`flex flex-col items-center gap-1 p-2 transition-colors ${currentPath.startsWith('work') ? 'text-brand-600 dark:text-white' : 'text-zinc-500 dark:text-zinc-400'}`}>
-        <i class={`text-2xl ${currentPath.startsWith('work') ? 'ph-fill ph-briefcase' : 'ph ph-briefcase'}`}></i>
-        <span class="text-[10px] font-medium">Work</span>
-    </a>
-    <a href="/blog" class={`flex flex-col items-center gap-1 p-2 transition-colors ${currentPath.startsWith('blog') ? 'text-brand-600 dark:text-white' : 'text-zinc-500 dark:text-zinc-400'}`}>
-        <i class={`text-2xl ${currentPath.startsWith('blog') ? 'ph-fill ph-article' : 'ph ph-article'}`}></i>
-        <span class="text-[10px] font-medium">Blog</span>
-    </a>
-    <a href="/about" class={`flex flex-col items-center gap-1 p-2 transition-colors ${currentPath.startsWith('about') ? 'text-brand-600 dark:text-white' : 'text-zinc-500 dark:text-zinc-400'}`}>
-        <i class={`text-2xl ${currentPath.startsWith('about') ? 'ph-fill ph-user' : 'ph ph-user'}`}></i>
-        <span class="text-[10px] font-medium">About</span>
-    </a>
+<!-- 2. MOBILE BOTTOM DOCK -->
+<div class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-full max-w-[320px]">
+    <div class="bg-zinc-900/90 dark:bg-zinc-800/90 backdrop-blur-xl border border-white/10 p-2 rounded-full flex justify-between items-center shadow-2xl">
+        <a href="/" class="w-12 h-12 rounded-full flex flex-col items-center justify-center text-zinc-400 hover:bg-white/10 hover:text-white transition-colors">
+            <i class="ph ph-house text-xl"></i>
+        </a>
+        <a href="/work" class="w-12 h-12 rounded-full flex flex-col items-center justify-center text-zinc-400 hover:bg-white/10 hover:text-white transition-colors">
+            <i class="ph ph-briefcase text-xl"></i>
+        </a>
+        
+        <!-- Main Action (Center) -->
+        <a href="mailto:hello@idgo.dev" class="w-14 h-14 bg-brand-600 rounded-full flex items-center justify-center text-white -mt-6 border-4 border-zinc-50 dark:border-zinc-950 shadow-lg transform active:scale-95 transition-transform">
+            <i class="ph ph-plus text-2xl font-bold"></i>
+        </a>
+        
+        <a href="/services" class="w-12 h-12 rounded-full flex flex-col items-center justify-center text-zinc-400 hover:bg-white/10 hover:text-white transition-colors">
+            <i class="ph ph-lightning text-xl"></i>
+        </a>
+        <a href="/blog" class="w-12 h-12 rounded-full flex flex-col items-center justify-center text-zinc-400 hover:bg-white/10 hover:text-white transition-colors">
+            <i class="ph ph-article text-xl"></i>
+        </a>
+    </div>
+</div>
+
+<!-- 3. MOBILE ROADMAP MODAL -->
+<div id="roadmap-modal-mobile" class="hidden md:hidden relative z-[110]" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 z-[110] flex items-end justify-center pointer-events-none">
+        <!-- Backdrop -->
+        <div id="roadmap-backdrop" class="absolute inset-0 bg-black/40 backdrop-blur-sm pointer-events-auto transition-opacity duration-300 opacity-0"></div>
+        
+        <!-- Sheet -->
+        <div id="roadmap-sheet" class="bg-white dark:bg-zinc-900 w-full max-w-md mx-4 mb-4 rounded-3xl p-6 pointer-events-auto shadow-2xl border border-zinc-200 dark:border-zinc-800 transform translate-y-full transition-transform duration-300 flex flex-col max-h-[80vh]">
+            <div class="w-12 h-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-full mx-auto mb-6 flex-shrink-0"></div>
+            
+            <div class="flex justify-between items-center mb-6 flex-shrink-0">
+                <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white">Roadmap & Update</h3>
+                <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 dark:text-brand-300 px-3 py-1 rounded-full font-bold">{roadmapData.status}</span>
+            </div>
+            
+            <div class="space-y-6 overflow-y-auto custom-scrollbar flex-grow pr-1">
+                 <div>
+                    <h4 class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-3">Sedang Dikerjakan</h4>
+                    {roadmapData.inProgress.map(item => (
+                        <div class="flex items-start gap-3 p-4 mb-2 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+                            <div class="mt-1.5 w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse flex-shrink-0"></div>
+                            <div><p class="font-bold text-zinc-900 dark:text-white">{item.title}</p><p class="text-sm text-zinc-500 mt-1">{item.desc}</p></div>
+                        </div>
+                    ))}
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-3">Selesai</h4>
+                    <div class="space-y-3">
+                        {roadmapData.completed.map(item => (
+                            <div class="flex items-start gap-3 text-zinc-700 dark:text-zinc-300">
+                                <i class="ph-fill ph-check-circle text-green-500 text-xl flex-shrink-0"></i><span class="font-medium">{item}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+            <button id="close-roadmap-mobile" class="w-full mt-6 bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 py-3.5 rounded-xl font-bold flex-shrink-0">Tutup</button>
+        </div>
+    </div>
 </div>
 
 <script>
-    // Logic Dark Mode Toggle
-    function setupTheme() {
-        const btns = [document.getElementById('theme-toggle'), document.getElementById('theme-toggle-mobile')];
-        const html = document.documentElement;
+    // --- THEME LOGIC ---
+    const toggleTheme = () => {
+        document.documentElement.classList.toggle("dark");
+        const isDark = document.documentElement.classList.contains("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+        updateIcons(isDark);
+    }
 
-        btns.forEach(btn => {
-            if(btn) {
-                btn.addEventListener('click', () => {
-                    if (html.classList.contains('dark')) {
-                        html.classList.remove('dark');
-                        localStorage.setItem('theme', 'light');
-                    } else {
-                        html.classList.add('dark');
-                        localStorage.setItem('theme', 'dark');
-                    }
-                });
+    const updateIcons = (isDark) => {
+        document.querySelectorAll('.theme-icon').forEach(icon => {
+            if(isDark) {
+                icon.classList.remove('ph-moon');
+                icon.classList.add('ph-sun');
+            } else {
+                icon.classList.remove('ph-sun');
+                icon.classList.add('ph-moon');
             }
         });
     }
 
-    // Jalankan saat load awal
-    setupTheme();
-    // Support Astro View Transitions (biar ga rusak pas pindah page)
-    document.addEventListener('astro:after-swap', setupTheme);
+    const deskThemeBtn = document.getElementById("theme-toggle-desktop");
+    const mobThemeBtn = document.getElementById("theme-toggle-mobile");
+
+    if(deskThemeBtn) deskThemeBtn.addEventListener("click", toggleTheme);
+    if(mobThemeBtn) mobThemeBtn.addEventListener("click", toggleTheme);
+    
+    // Check initial
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        updateIcons(true);
+    } else {
+        updateIcons(false);
+    }
+
+    // --- ROADMAP DESKTOP ---
+    const deskBtn = document.getElementById('roadmap-btn-desk');
+    const deskDropdown = document.getElementById('roadmap-dropdown-desk');
+
+    if (deskBtn && deskDropdown) {
+        deskBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            deskDropdown.classList.toggle('hidden');
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+            const target = e.target;
+            if (!deskBtn.contains(target) && !deskDropdown.contains(target)) {
+                deskDropdown.classList.add('hidden');
+            }
+        });
+    }
+
+    // --- ROADMAP MOBILE ---
+    const mobBtn = document.getElementById('roadmap-btn-mobile');
+    const mobModal = document.getElementById('roadmap-modal-mobile');
+    const mobBackdrop = document.getElementById('roadmap-backdrop');
+    const mobSheet = document.getElementById('roadmap-sheet');
+    const mobClose = document.getElementById('close-roadmap-mobile');
+
+    const toggleMobileRoadmap = () => {
+        if (!mobModal || !mobBackdrop || !mobSheet) return;
+
+        if (mobModal.classList.contains('hidden')) {
+            // Open
+            mobModal.classList.remove('hidden');
+            // Allow layout calc before transition
+            requestAnimationFrame(() => {
+                mobBackdrop.classList.remove('opacity-0');
+                mobSheet.classList.remove('translate-y-full');
+            });
+        } else {
+            // Close
+            mobBackdrop.classList.add('opacity-0');
+            mobSheet.classList.add('translate-y-full');
+            
+            // Wait for transition to end before hiding
+            setTimeout(() => {
+                mobModal.classList.add('hidden');
+            }, 300);
+        }
+    };
+
+    if(mobBtn) mobBtn.addEventListener('click', toggleMobileRoadmap);
+    if(mobBackdrop) mobBackdrop.addEventListener('click', toggleMobileRoadmap);
+    if(mobClose) mobClose.addEventListener('click', toggleMobileRoadmap);
 </script>
+
+<style>
+    /* Custom Scrollbar untuk Dropdown */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        @apply bg-zinc-300 dark:bg-zinc-700 rounded-full;
+    }
+</style>

@@ -2,7 +2,7 @@
 title: "Why I Switched from React to Astro"
 description: "Single Page Applications are overkill for content sites. Here is why I migrated to Island Architecture."
 pubDate: 2024-01-12
-heroImage: "/images/blog/why-astro.jpg"
+heroImage: "/images/blog/idgo_blog.png"
 category: "Architecture"
 featured: true
 ---

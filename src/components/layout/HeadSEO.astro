@@ -1,51 +1,39 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
-
 export interface Props {
 	title: string;
 	description: string;
 	image?: string;
-	ogType?: 'website' | 'article';
 }
 
 const { 
     title, 
     description, 
-    image = '/og-default.jpg', // Pastikan nanti taruh gambar default di folder /public
-    ogType = 'website' 
+    image = '/og-default.jpg' 
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImageURL = new URL(image, Astro.site);
 ---
 
-<!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
 
-<!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
 
-<!-- Primary Meta Tags -->
-<title>{title} | IDGO.dev</title>
-<meta name="title" content={`${title} | IDGO.dev`} />
+<title>{title} | idgo</title>
+<meta name="title" content={`${title} | idgo`} />
 <meta name="description" content={description} />
 
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content={ogType} />
+<meta property="og:type" content="website" />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={socialImageURL} />
 
-<!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={canonicalURL} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={socialImageURL} />
-
-<!-- View Transitions (Biar navigasi smooth kayak App) -->
-<ViewTransitions />

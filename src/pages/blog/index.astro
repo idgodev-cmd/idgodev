@@ -1,23 +1,68 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogCard from '../../components/blog/BlogCard.astro';
 
-// Ambil semua artikel blog
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+// Ambil semua post dan urutkan dari yang terbaru
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<BaseLayout title="Engineering Notes" description="Writing about web development, architecture, and performance.">
-    <div class="mb-12 border-b border-zinc-200 dark:border-zinc-800 pb-8 animate-fade">
-        <h1 class="text-4xl md:text-6xl font-bold mb-4 text-zinc-900 dark:text-white">Engineering Notes</h1>
-        <p class="text-zinc-500 text-lg">Catatan teknis, opini, dan tutorial seputar modern web.</p>
+<BaseLayout title="Blog & Catatan" description="Tulisan seputar web development, desain, dan teknologi.">
+    
+    <div class="pt-10 md:pt-20 px-4">
+        
+        <!-- Header -->
+        <div class="mb-12 border-b border-zinc-200 dark:border-zinc-800 pb-8">
+            <h1 class="font-display text-4xl md:text-6xl font-bold mb-4 text-zinc-900 dark:text-white">
+                Catatan Engineering
+            </h1>
+            <p class="text-lg text-zinc-500 dark:text-zinc-400 max-w-2xl">
+                Dokumentasi perjalanan coding, opini teknis, dan tutorial seputar ekosistem JavaScript modern.
+            </p>
+        </div>
+
+        <!-- Blog Grid List -->
+        <div class="grid gap-8 mb-24">
+            {sortedPosts.map((post) => (
+                <a href={`/blog/${post.slug}`} class="group block">
+                    <article class="flex flex-col md:flex-row gap-6 md:items-center bg-zinc-50 dark:bg-zinc-900/50 p-6 rounded-3xl border border-zinc-200 dark:border-zinc-800 hover:border-brand-500 transition-all hover:shadow-lg hover:shadow-brand-500/5">
+                        
+                        <!-- Thumbnail Image -->
+                        <div class="w-full md:w-72 aspect-video rounded-2xl overflow-hidden bg-zinc-200 dark:bg-zinc-800 flex-shrink-0 border border-zinc-200 dark:border-zinc-700">
+                            <img 
+                                src={post.data.heroImage || 'https://placehold.co/600x400?text=No+Image'} 
+                                alt={post.data.title} 
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                        </div>
+
+                        <!-- Content -->
+                        <div class="flex-1 py-2">
+                            <div class="flex items-center gap-3 text-xs font-bold text-zinc-500 mb-3 uppercase tracking-wide">
+                                <span class="bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 px-2 py-1 rounded-md">
+                                    {post.data.category}
+                                </span>
+                                <span>•</span>
+                                <span>{post.data.pubDate.toLocaleDateString('id-ID', { dateStyle: 'long' })}</span>
+                            </div>
+                            
+                            <h2 class="text-2xl md:text-3xl font-bold mb-3 text-zinc-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                                {post.data.title}
+                            </h2>
+                            
+                            <p class="text-zinc-500 dark:text-zinc-400 line-clamp-2 mb-6 leading-relaxed">
+                                {post.data.description}
+                            </p>
+                            
+                            <span class="inline-flex items-center gap-2 text-sm font-bold text-zinc-900 dark:text-white group-hover:gap-3 transition-all">
+                                Baca Selengkapnya <i class="ph ph-arrow-right text-brand-500"></i>
+                            </span>
+                        </div>
+                    </article>
+                </a>
+            ))}
+        </div>
+
     </div>
 
-    <div class="grid md:grid-cols-3 gap-8 animate-fade">
-        {posts.map((post) => (
-            <BlogCard post={post} />
-        ))}
-    </div>
 </BaseLayout>
