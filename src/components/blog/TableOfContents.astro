@@ -1,0 +1,62 @@
+---
+// Props headings dikirim otomatis oleh Astro saat render Markdown
+const { headings } = Astro.props; 
+---
+
+<div class="mb-10 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5">
+    <button id="toc-toggle" class="flex items-center justify-between w-full font-bold text-zinc-900 dark:text-white group cursor-pointer">
+        <span>Daftar Isi</span>
+        <div class="flex items-center gap-2 text-xs text-brand-600 font-medium">
+            <span id="toc-label">Hide</span>
+            <i id="toc-icon" class="ph ph-caret-up transform transition-transform"></i>
+        </div>
+    </button>
+    
+    <nav id="toc-list" class="mt-4 border-t border-zinc-200 dark:border-zinc-800 pt-4 transition-all duration-300 overflow-hidden max-h-[500px] opacity-100">
+        <ul class="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+            {headings.map((heading: any) => (
+                <li style={`margin-left: ${(heading.depth - 2) * 1}rem`}>
+                    <a href={`#${heading.slug}`} class="hover:text-brand-600 transition-colors flex items-center gap-2">
+                        <i class="ph ph-caret-right text-xs text-zinc-400"></i>
+                        {heading.text}
+                    </a>
+                </li>
+            ))}
+        </ul>
+    </nav>
+</div>
+
+<script>
+    function setupTOC() {
+        const btn = document.getElementById('toc-toggle');
+        const list = document.getElementById('toc-list');
+        const label = document.getElementById('toc-label');
+        const icon = document.getElementById('toc-icon');
+
+        btn?.addEventListener('click', () => {
+            const isClosed = list?.classList.contains('hidden-toc');
+            
+            if (isClosed) {
+                list?.classList.remove('hidden-toc');
+                list!.style.maxHeight = '500px';
+                list!.style.opacity = '1';
+                list!.style.marginTop = '1rem';
+                if(label) label.innerText = 'Hide';
+                if(icon) icon.style.transform = 'rotate(0deg)';
+            } else {
+                list?.classList.add('hidden-toc');
+                list!.style.maxHeight = '0px';
+                list!.style.opacity = '0';
+                list!.style.marginTop = '0px';
+                if(label) label.innerText = 'Show';
+                if(icon) icon.style.transform = 'rotate(180deg)';
+            }
+        });
+    }
+
+    // Jalankan saat load awal
+    setupTOC();
+    
+    // Support View Transitions
+    document.addEventListener('astro:after-swap', setupTOC);
+</script>

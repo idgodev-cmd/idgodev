@@ -1,0 +1,29 @@
+<button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors text-zinc-600 dark:text-zinc-400">
+    <i class="ph ph-sun text-lg hidden dark:block"></i>
+    <i class="ph ph-moon text-lg block dark:hidden"></i>
+    <span class="sr-only">Toggle Theme</span>
+</button>
+
+<script>
+    // Script ini berjalan setiap kali halaman berpindah (support View Transitions)
+    function setupThemeToggle() {
+        const btn = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        btn?.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    }
+
+    // Jalankan saat awal load
+    setupThemeToggle();
+
+    // Jalankan ulang saat pindah halaman (Astro View Transitions)
+    document.addEventListener('astro:after-swap', setupThemeToggle);
+</script>

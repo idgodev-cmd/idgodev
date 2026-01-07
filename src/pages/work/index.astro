@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/work/ProjectCard.astro';
+
+// Ambil semua project & urutkan dari terbaru
+const projects = (await getCollection('projects')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout title="Selected Work" description="Portfolio of IDGO.dev">
+    <div class="mb-12 border-b border-zinc-200 dark:border-zinc-800 pb-8 animate-fade">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 text-zinc-900 dark:text-white">Selected Work</h1>
+        <p class="text-zinc-500 text-lg">Showcase proyek terbaik yang menggabungkan estetika dan performa teknis.</p>
+    </div>
+
+    <div class="grid gap-12 animate-fade">
+        {projects.map((project) => (
+            <ProjectCard project={project} />
+        ))}
+    </div>
+</BaseLayout>

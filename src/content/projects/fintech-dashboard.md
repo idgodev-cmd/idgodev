@@ -1,0 +1,3 @@
+title: "FinTech Trading Dashboard" description: "Real-time crypto asset tracking with WebSockets and D3.js visualization." pubDate: "Dec 10, 2023" techStack: ["Next.js", "TypeScript", "D3.js"] heroImage: "https://www.google.com/search?q=https://placehold.co/800x500/111/FFF%3Ftext%3DDashboard%2BUI" link: "https://github.com"
+
+This project was built to handle high-frequency data updates without compromising UI performance.

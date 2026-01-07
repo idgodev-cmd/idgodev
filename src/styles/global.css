@@ -1,0 +1,38 @@
+/* Import Font Plus Jakarta Sans */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* --- PERBAIKAN DI SINI --- */
+/* Ganti @import "tailwindcss"; dengan 3 baris ini: */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* Utility custom untuk efek kaca */
+  .glass-panel {
+    @apply backdrop-blur-md bg-white/80 dark:bg-zinc-950/80 border-b border-zinc-200 dark:border-zinc-800;
+  }
+  
+  .page-view {
+    @apply min-h-screen w-full;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    @apply bg-zinc-400 dark:bg-zinc-700 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-brand-600;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}

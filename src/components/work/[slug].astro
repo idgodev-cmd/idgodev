@@ -1,0 +1,68 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+---
+
+<BaseLayout title={project.data.title} description={project.data.description} image={project.data.heroImage}>
+    
+    <a href="/work" class="mb-8 inline-flex items-center gap-2 text-sm font-bold text-zinc-500 hover:text-brand-600 transition-colors">
+        <i class="ph ph-arrow-left"></i> Back to Work
+    </a>
+
+    <div class="grid md:grid-cols-3 gap-10 animate-fade">
+        <!-- Sidebar Info -->
+        <div class="md:col-span-1 order-2 md:order-1">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-zinc-900 dark:text-white mb-4">
+                {project.data.title}
+            </h1>
+            <p class="text-lg text-zinc-600 dark:text-zinc-400 mb-6 leading-relaxed">
+                {project.data.description}
+            </p>
+
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">Tech Stack</h3>
+                    <div class="flex flex-wrap gap-2">
+                        {(project.data.techStack || []).map((tech: string) => (
+                            <span class="px-2 py-1 bg-zinc-100 dark:bg-zinc-800 rounded text-xs font-bold text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">
+                                {tech}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+
+                {project.data.link && (
+                    <div>
+                         <h3 class="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">Link</h3>
+                         <a href={project.data.link} target="_blank" class="inline-flex items-center gap-2 text-brand-600 font-bold hover:underline">
+                            View Live Project <i class="ph ph-arrow-up-right"></i>
+                         </a>
+                    </div>
+                )}
+            </div>
+        </div>
+
+        <!-- Main Content & Image -->
+        <div class="md:col-span-2 order-1 md:order-2">
+            <div class="rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-lg mb-8 aspect-video">
+                <img src={project.data.heroImage} alt={project.data.title} class="w-full h-full object-cover" />
+            </div>
+            
+            <div class="prose prose-zinc dark:prose-invert max-w-none">
+                <Content />
+            </div>
+        </div>
+    </div>
+
+</BaseLayout>

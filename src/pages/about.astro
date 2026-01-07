@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About Me" description="Senior Frontend Engineer based in Jakarta.">
+    <div class="max-w-3xl mx-auto animate-fade">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-8 text-zinc-900 dark:text-white">About Me</h1>
+        
+        <div class="prose prose-zinc dark:prose-invert prose-lg mb-12">
+            <p class="lead text-xl">
+                Hi! Saya engineer yang terobsesi dengan <strong>clean code</strong> dan <strong>user experience</strong>. Saya percaya website bukan cuma sekadar brosur digital, tapi sebuah produk software yang harus cepat, aman, dan mudah digunakan.
+            </p>
+            <p>
+                Saat ini saya fokus menggunakan stack modern seperti <strong>Astro</strong>, <strong>React</strong>, dan <strong>Tailwind CSS</strong> untuk mengirimkan kode sesedikit mungkin ke browser user.
+            </p>
+            <p>
+                Sebelumnya saya bekerja sebagai Fullstack Developer di sebuah agensi digital, menangani klien dari berbagai industri mulai dari F&B hingga Fintech. Pengalaman ini mengajarkan saya pentingnya keseimbangan antara estetika desain dan kekokohan sistem.
+            </p>
+        </div>
+
+        <div class="border-t border-zinc-200 dark:border-zinc-800 pt-10">
+            <h2 class="text-2xl font-bold mb-6 text-zinc-900 dark:text-white">Experience</h2>
+            <div class="space-y-8">
+                <!-- Exp Item 1 -->
+                <div class="flex flex-col sm:flex-row sm:justify-between gap-2">
+                    <div>
+                        <h3 class="font-bold text-lg text-zinc-900 dark:text-white">Senior Frontend Engineer</h3>
+                        <p class="text-zinc-500">Tech Unicorn Indonesia</p>
+                    </div>
+                    <span class="text-sm font-mono text-zinc-400">2021 - Present</span>
+                </div>
+                <!-- Exp Item 2 -->
+                <div class="flex flex-col sm:flex-row sm:justify-between gap-2">
+                    <div>
+                        <h3 class="font-bold text-lg text-zinc-900 dark:text-white">Web Developer</h3>
+                        <p class="text-zinc-500">Creative Digital Agency</p>
+                    </div>
+                    <span class="text-sm font-mono text-zinc-400">2019 - 2021</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-12">
+            <a href="mailto:hello@idgo.dev" class="inline-flex items-center gap-2 bg-brand-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-brand-700 transition-colors">
+                <i class="ph ph-envelope-simple"></i> Contact Me
+            </a>
+        </div>
+    </div>
+</BaseLayout>

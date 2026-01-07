@@ -1,0 +1,38 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+---
+
+<a href={`/blog/${post.slug}`} class="group cursor-pointer bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden hover:border-brand-500 transition-colors shadow-sm flex flex-col h-full">
+  <div class="aspect-video bg-zinc-200 dark:bg-zinc-800 overflow-hidden relative">
+    <img 
+      src={post.data.heroImage} 
+      alt={post.data.title} 
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      loading="lazy"
+    />
+    <div class="absolute top-4 left-4 bg-brand-600 text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
+      {post.data.category}
+    </div>
+  </div>
+  <div class="p-6 flex flex-col flex-grow">
+    <div class="text-xs font-bold text-zinc-400 mb-2 uppercase tracking-wide">
+      {/* Tambahkan pengecekan: Jika pubDate ada, format tanggalnya. Jika tidak, tampilkan string kosong atau fallback */}
+      {post.data.pubDate ? post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : ''}
+    </div>
+    <h3 class="text-xl font-bold mb-2 text-zinc-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+      {post.data.title}
+    </h3>
+    <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4 line-clamp-2 flex-grow">
+      {post.data.description}
+    </p>
+    <div class="text-sm font-bold text-brand-600 dark:text-brand-400 flex items-center gap-1 mt-auto">
+      Read Article <i class="ph ph-arrow-right"></i>
+    </div>
+  </div>
+</a>

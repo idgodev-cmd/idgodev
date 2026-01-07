@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TableOfContents from '../../components/blog/TableOfContents.astro';
+import BlogCard from '../../components/blog/BlogCard.astro';
+
+// 1. Generate Static Paths: Memberitahu Astro halaman apa saja yang harus dibuat
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await post.render();
+
+// 2. Logic Artikel Terkait (Related Posts)
+const allPosts = await getCollection('blog');
+const relatedPosts = allPosts
+    .filter((p) => p.slug !== post.slug) // Jangan tampilkan post yang sedang dibuka
+    .slice(0, 2);
+---
+
+<BaseLayout title={post.data.title} description={post.data.description} image={post.data.heroImage} ogType="article">
+    
+    <a href="/blog" class="mb-8 inline-flex items-center gap-2 text-sm font-bold text-zinc-500 hover:text-brand-600 transition-colors">
+        <i class="ph ph-arrow-left"></i> Back to Blog
+    </a>
+
+    <article class="max-w-3xl mx-auto pb-10">
+        <!-- Header Artikel -->
+        <div class="mb-8 text-center animate-fade">
+            <div class="flex items-center justify-center gap-3 text-xs font-bold text-zinc-500 mb-4 uppercase tracking-wide">
+                <span class="text-brand-600 dark:text-brand-400">{post.data.category}</span>
+                <span>•</span>
+                <span>{post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+            </div>
+            <h1 class="text-3xl md:text-5xl font-extrabold mb-6 leading-tight text-zinc-900 dark:text-white">
+                {post.data.title}
+            </h1>
+        </div>
+
+        <!-- Featured Image -->
+        <div class="w-full aspect-video rounded-2xl overflow-hidden bg-zinc-200 dark:bg-zinc-800 mb-10 border border-zinc-200 dark:border-zinc-800 shadow-sm animate-fade">
+            <img src={post.data.heroImage} alt={post.data.title} class="w-full h-full object-cover" />
+        </div>
+
+        <!-- Daftar Isi (Hanya muncul jika ada heading h2/h3) -->
+        {headings.length > 0 && <TableOfContents headings={headings} />}
+
+        <!-- Isi Konten Utama -->
+        <div class="prose prose-zinc dark:prose-invert lg:prose-lg mx-auto prose-a:text-brand-600 hover:prose-a:text-brand-500 prose-img:rounded-xl">
+            <Content />
+        </div>
+        
+        <!-- Footer Share -->
+        <div class="mt-16 pt-8 border-t border-zinc-200 dark:border-zinc-800 flex justify-between items-center">
+            <span class="font-bold text-zinc-900 dark:text-white">Share this article</span>
+            <div class="flex gap-4 text-2xl text-zinc-500">
+                <button class="hover:text-brand-600 transition-colors"><i class="ph ph-twitter-logo"></i></button>
+                <button class="hover:text-brand-600 transition-colors"><i class="ph ph-linkedin-logo"></i></button>
+            </div>
+        </div>
+
+        <!-- Artikel Terkait -->
+        {relatedPosts.length > 0 && (
+            <div class="mt-20 pt-10 border-t border-zinc-200 dark:border-zinc-800">
+                <h3 class="font-bold text-2xl text-zinc-900 dark:text-white mb-6">Artikel Terkait</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    {relatedPosts.map((related) => (
+                        <BlogCard post={related} />
+                    ))}
+                </div>
+            </div>
+        )}
+    </article>
+</BaseLayout>
