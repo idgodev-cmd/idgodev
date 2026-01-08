@@ -1,9 +1,9 @@
 ---
 title: "Website Itu Aset, Bukan Brosur Digital"
 description: "Website seharusnya bekerja sebagai aset bisnis yang menghasilkan, bukan sekadar brosur digital yang pasif dan jarang diperbarui."
-pubDate: "2025-01-08"
-techStack: ["Web Strategy", "UI/UX", "Web Performance"]
+pubDate: 2026-01-08
 heroImage: "/images/blog/Website Itu Aset, Bukan Brosur Digital.webp"
+slug: "Website-Itu-Aset-Bukan-Brosur-Digital"
 ---
 
 ## Website Itu Aset, Bukan Brosur Digital
