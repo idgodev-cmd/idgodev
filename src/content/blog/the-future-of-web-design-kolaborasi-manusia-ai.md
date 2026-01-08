@@ -2,7 +2,7 @@
 title: "The Future of Web Design: Kolaborasi Manusia &amp; AI"
 description: ""
 pubDate: 2025-10-07
-heroImage: "/images/blog/idgo_blog.png"
+heroImage: "/images/blog/The Future of Web.webp"
 slug: "the-future-of-web-design-kolaborasi-manusia-ai"
 ---
 

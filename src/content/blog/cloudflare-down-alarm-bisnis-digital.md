@@ -2,7 +2,7 @@
 title: "Cloudflare Down Kemarin Jadi Alarm Bisnis Digital"
 description: ""
 pubDate: 2025-11-19
-heroImage: "/images/blog/idgo_blog.png"
+heroImage: "/images/blog/Cloudflare Down Kemarin.webp"
 slug: "cloudflare-down-alarm-bisnis-digital"
 ---
 

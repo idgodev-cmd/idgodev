@@ -2,7 +2,7 @@
 title: "Kenapa Bisnis 2025 Wajib Punya Website Profesional"
 description: ""
 pubDate: 2025-11-18
-heroImage: "/images/blog/idgo_blog.png"
+heroImage: "/images/blog/Kenapa Bisnis.webp"
 slug: "kenapa-bisnis-2025-wajib-punya-website-profesional"
 ---
 

@@ -2,7 +2,7 @@
 title: "Psychology Behind Design: Cara Otak Membaca Desain"
 description: ""
 pubDate: 2025-10-05
-heroImage: "/images/blog/idgo_blog.png"
+heroImage: "/images/blog/Psychology Behind.webp"
 slug: "psychology-behind-design-cara-otak-membaca-desain"
 ---
 

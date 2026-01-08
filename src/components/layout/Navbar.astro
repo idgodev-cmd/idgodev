@@ -6,19 +6,20 @@ const pathname = new URL(Astro.request.url).pathname;
 ---
 
 <!-- ================= DESKTOP NAV ================= -->
-<!-- FIX: pointer-events-none di container luar agar area kosong tidak memblokir klik -->
+<!-- FIX: Z-Index z-[100] agar pasti di atas noise (z-50) -->
 <nav class="hidden md:flex fixed top-6 left-0 right-0 z-[100] justify-center pointer-events-none">
     <!-- FIX: pointer-events-auto di elemen dalam agar menu & tombol BISA diklik -->
     <div class="glass-panel bg-white/80 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 rounded-full px-6 py-3 flex items-center gap-8 shadow-xl shadow-black/5 relative pointer-events-auto">
         <!-- Logo -->
         <a href="/" class="font-display font-bold text-lg tracking-tight hover:scale-105 transition-transform">
-            idgo<span class="text-brand-500">.</span>
+            IDGO<span class="text-brand-500">.</span>
         </a>
         
         <div class="h-4 w-px bg-zinc-300 dark:bg-zinc-700"></div>
         
         <!-- Menu Links -->
         <div class="flex gap-6 text-sm font-medium text-zinc-600 dark:text-zinc-400">
+            <a href="/about" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Tentang</a>
             <a href="/work" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Portofolio</a>
             <a href="/services" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Layanan</a>
             <a href="/blog" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Blog</a>
@@ -86,7 +87,7 @@ const pathname = new URL(Astro.request.url).pathname;
 
 <!-- 1. MOBILE TOP BAR -->
 <div class="md:hidden fixed top-0 w-full z-[100] flex justify-between items-center p-6 bg-zinc-50/90 dark:bg-zinc-950/90 backdrop-blur-md border-b border-zinc-200/50 dark:border-zinc-800/50 transition-colors">
-    <a href="/" class="font-display font-bold text-xl text-zinc-900 dark:text-white">idgo<span class="text-brand-500">.</span></a>
+    <a href="/" class="font-display font-bold text-xl text-zinc-900 dark:text-white">IDGO<span class="text-brand-500">.</span></a>
     
     <div class="flex items-center gap-2">
         <button id="theme-toggle-mobile" class="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-900 flex items-center justify-center text-zinc-900 dark:text-white transition-colors">
@@ -110,7 +111,7 @@ const pathname = new URL(Astro.request.url).pathname;
         </a>
         
         <!-- Main Action (Center) -->
-        <a href="mailto:hello@idgo.dev" class="w-14 h-14 bg-brand-600 rounded-full flex items-center justify-center text-white -mt-6 border-4 border-zinc-50 dark:border-zinc-950 shadow-lg transform active:scale-95 transition-transform">
+        <a href="/about" class="w-14 h-14 bg-brand-600 rounded-full flex items-center justify-center text-white -mt-6 border-4 border-zinc-50 dark:border-zinc-950 shadow-lg transform active:scale-95 transition-transform">
             <i class="ph ph-plus text-2xl font-bold"></i>
         </a>
         
@@ -173,7 +174,7 @@ const pathname = new URL(Astro.request.url).pathname;
         updateIcons(isDark);
     }
 
-    const updateIcons = (isDark) => {
+    const updateIcons = (isDark: boolean) => {
         document.querySelectorAll('.theme-icon').forEach(icon => {
             if(isDark) {
                 icon.classList.remove('ph-moon');
@@ -210,7 +211,7 @@ const pathname = new URL(Astro.request.url).pathname;
 
         // Close when clicking outside
         document.addEventListener('click', (e) => {
-            const target = e.target;
+            const target = e.target as HTMLElement;
             if (!deskBtn.contains(target) && !deskDropdown.contains(target)) {
                 deskDropdown.classList.add('hidden');
             }

@@ -2,7 +2,7 @@
 title: "Tren UI/UX 2026: Evolusi Desain yang Harus Kamu Antisipasi"
 description: ""
 pubDate: 2025-10-05
-heroImage: "/images/blog/idgo_blog.png"
+heroImage: "/images/blog/Tren UIUX 2026.webp"
 slug: "tren-ui-ux-2026-evolusi-desain-yang-harus-kamu-antisipasi"
 ---
 
