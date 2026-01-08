@@ -1,132 +1,108 @@
 ---
-title: "Kenapa Banyak Website Keren Gagal Jadi Produk"
-description: "Banyak website terlihat keren secara visual, tapi gagal berfungsi sebagai produk digital yang menghasilkan dan berkelanjutan."
+title: "Website Itu Aset, Bukan Brosur Digital"
+description: "Website seharusnya bekerja sebagai aset bisnis yang menghasilkan, bukan sekadar brosur digital yang pasif dan jarang diperbarui."
 pubDate: "2025-01-08"
-techStack: ["UI/UX", "Web Performance", "Product Design"]
-heroImage: "/images/blog/Kenapa Banyak Website Keren.webp"
+techStack: ["Web Strategy", "UI/UX", "Web Performance"]
+heroImage: "/images/blog/Website Itu Aset, Bukan Brosur Digital.webp"
 ---
 
-## Kenapa Banyak Website Keren Gagal Jadi Produk
+## Website Itu Aset, Bukan Brosur Digital
 
-Banyak website terlihat modern, animatif, dan visualnya menarik.  
-Namun ketika dilihat lebih dalam, website-website tersebut **gagal berfungsi sebagai produk digital**.
+Masih banyak bisnis yang menganggap website sebagai **brosur digital**.  
+Isinya statis, jarang diperbarui, dan hanya berfungsi sebagai formalitas online.
 
-Masalahnya bukan di desain.  
-Masalahnya ada di **cara berpikir saat membangun website**.
-
----
-
-## Website Keren ≠ Produk Digital
-
-Website sering diperlakukan sebagai:
-- Etalase online
-- Formalitas branding
-- Proyek satu kali jadi
-
-Padahal, **produk digital** adalah sesuatu yang:
-- Dipakai secara berulang
-- Punya tujuan jelas
-- Memberi nilai ke user
-- Mendukung tujuan bisnis
-
-Kalau website hanya “keren dilihat”, tapi tidak membantu user mengambil keputusan, maka itu **bukan produk**.
+Padahal, website yang dibangun dengan benar adalah **aset digital** yang bisa bekerja 24/7 untuk bisnis.
 
 ---
 
-## Masalah Umum: Fokus ke Visual, Lupa ke Fungsi
+## Masalah Umum: Website Hanya Pajangan
 
-Banyak website gagal karena:
-- Terlalu fokus ke animasi
-- Terlalu berat dan lambat
-- Informasi penting tersembunyi
-- CTA tidak jelas
-- Tidak mobile-first
+Website sering dibuat dengan tujuan:
+- “Yang penting punya”
+- “Biar kelihatan profesional”
+- “Ikutin kompetitor”
 
-User tidak datang untuk mengagumi desain.  
-User datang untuk **menyelesaikan masalah**.
+Akibatnya:
+- Tidak ada tujuan jelas
+- Tidak ada alur user
+- Tidak ada konversi
+- Tidak pernah dievaluasi
 
----
-
-## Produk Digital Butuh Arah
-
-Produk yang sehat selalu dimulai dari pertanyaan:
-- Siapa user-nya?
-- Apa masalah utamanya?
-- Aksi apa yang diharapkan?
-- Bagaimana alurnya?
-
-Tanpa arah, website hanya jadi **kumpulan halaman cantik** tanpa fungsi nyata.
+Website seperti ini tidak membantu bisnis tumbuh.
 
 ---
 
-## UX Adalah Keputusan, Bukan Dekorasi
+## Apa yang Membuat Website Disebut Aset?
 
-UI/UX bukan soal:
-- Warna
-- Font
-- Tren desain
+Website bisa disebut aset jika:
+- Membantu user mengambil keputusan
+- Menghasilkan leads atau penjualan
+- Memberi nilai secara konsisten
+- Terus dikembangkan berdasarkan data
 
-UI/UX adalah soal:
-- Mengurangi kebingungan
-- Mempercepat keputusan
-- Mengarahkan perhatian user
-
-Setiap elemen harus punya alasan.  
-Kalau tidak, itu hanya noise.
+Aset digital **bekerja**, bukan hanya ada.
 
 ---
 
-## Performa Adalah Bagian dari Pengalaman
+## Peran UI/UX dalam Website sebagai Aset
 
-Website lambat adalah pengalaman buruk.
+UI/UX bukan soal estetika, tapi fungsi:
+- User cepat paham
+- Informasi mudah ditemukan
+- CTA jelas
+- Friksi diminimalkan
+
+Semakin sedikit user berpikir, semakin besar peluang konversi.
+
+---
+
+## Performa Menentukan Nilai Website
+
+Website lambat = aset bocor.
 
 User tidak peduli:
-- Framework apa yang dipakai
-- Seberapa kompleks animasinya
+- Teknologi apa yang dipakai
+- Desain seberapa kompleks
 
 Yang mereka pedulikan:
 - Cepat terbuka
-- Mudah dipakai
-- Tidak bikin frustrasi
+- Mudah digunakan
+- Stabil di mobile
 
-Performa bukan optimasi tambahan.  
-Performa adalah **fitur utama**.
+Performa adalah bagian dari pengalaman, bukan tambahan.
 
 ---
 
-## Website Produk Selalu Berkembang
+## Website Aset Selalu Berkembang
 
-Website yang dibangun sebagai produk:
-- Terus dievaluasi
-- Terus diperbaiki
-- Mengikuti perilaku user
+Website yang sehat:
+- Dievaluasi secara berkala
+- Diupdate sesuai kebutuhan user
+- Mengikuti perubahan bisnis
 
-Bukan “launch lalu ditinggal”.
-
-Produk digital adalah proses, bukan hasil akhir.
+Bukan “launch → selesai”.
 
 ---
 
 ## Kesimpulan
 
-Website yang keren tapi gagal jadi produk biasanya:
-- Tidak punya tujuan jelas
-- Tidak memprioritaskan user
-- Tidak memikirkan performa
-- Tidak dibangun dengan mindset produk
+Jika website hanya:
+- Sekali jadi
+- Jarang diupdate
+- Tidak punya tujuan
 
-Website seharusnya bekerja untuk bisnis, bukan sekadar terlihat bagus.
+Maka itu bukan aset, tapi **beban**.
+
+Website yang dibangun sebagai aset akan terus memberi nilai, bahkan saat bisnis sedang tidak aktif promosi.
 
 ---
 
 ## Tentang IDGO
 
-IDGO membangun website sebagai **produk digital**, bukan brosur online.
+IDGO membangun website sebagai **aset digital**, bukan brosur online.
 
 Fokus kami:
+- Strategi yang jelas
 - UI/UX yang manusiawi
 - Performa yang serius
 - Struktur yang siap berkembang
-
-Jika Anda ingin website yang **berfungsi, bukan sekadar tampil**,  
-IDGO siap membantu dari strategi sampai eksekusi.
