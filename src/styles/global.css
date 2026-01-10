@@ -1,5 +1,4 @@
 /* 1. Import Fonts via Package (Lebih Cepat dari CDN) */
-/* Fontsource biasanya sudah auto-swap, tapi icon perlu manual */
 @import "@fontsource/space-grotesk/300.css";
 @import "@fontsource/space-grotesk/400.css";
 @import "@fontsource/space-grotesk/500.css";
@@ -12,16 +11,15 @@
 @import "@fontsource/inter/600.css";
 
 /* 2. Manual Font Face untuk Phosphor Icons (FIX: font-display: swap) */
-/* Kita ganti @import dengan definisi manual agar bisa tambah 'font-display: swap' */
+/* Menggunakan file lokal di public/fonts/ agar sinkron dengan HeadSEO.astro */
 
 /* Regular Icons */
 @font-face {
   font-family: "Phosphor";
   font-style: normal;
   font-weight: 400;
-  /* UPDATE: Load dari folder public agar bisa di-preload di HTML Head */
   src: url("/fonts/Phosphor.woff2") format("woff2");
-  font-display: swap; /* INI KUNCINYA */
+  font-display: swap; /* Fix Lighthouse: Teks tetap terlihat saat font loading */
 }
 
 .ph {
@@ -42,9 +40,8 @@
   font-family: "Phosphor-Fill";
   font-style: normal;
   font-weight: 400;
-  /* UPDATE: Load dari folder public agar bisa di-preload di HTML Head */
   src: url("/fonts/Phosphor-Fill.woff2") format("woff2");
-  font-display: swap; /* INI KUNCINYA */
+  font-display: swap; /* Fix Lighthouse */
 }
 
 .ph-fill {
@@ -60,16 +57,13 @@
   text-decoration: none;
 }
 
-/* Bold Icons */
+/* Bold Icons (Opsional, jika file ada) */
 @font-face {
   font-family: "Phosphor-Bold";
   font-style: normal;
   font-weight: 700;
-  /* Opsional: Copy juga bold jika dipakai, atau biarkan fallback */
-  src: url("@phosphor-icons/web/src/bold/Phosphor-Bold.woff2") format("woff2"),
-       url("@phosphor-icons/web/src/bold/Phosphor-Bold.woff") format("woff"),
-       url("@phosphor-icons/web/src/bold/Phosphor-Bold.ttf") format("truetype");
-  font-display: swap; /* INI KUNCINYA */
+  src: url("/fonts/Phosphor-Bold.woff2") format("woff2"); 
+  font-display: swap;
 }
 
 .ph-bold {
@@ -112,7 +106,7 @@
     -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
   }
 
-  /* Utility untuk View Switching (jika masih dipakai) */
+  /* Utility untuk View Switching */
   .view-section {
     @apply hidden;
   }
