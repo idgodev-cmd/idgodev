@@ -1,41 +1,113 @@
 ---
 import { roadmapData } from '../../data/roadmap';
 
+// FIX: Import CSS Icon langsung di sini agar pasti termuat
+import '@phosphor-icons/web/regular';
+import '@phosphor-icons/web/bold';
+import '@phosphor-icons/web/fill';
+
 // Helper untuk active state
 const pathname = new URL(Astro.request.url).pathname;
 ---
 
 <!-- ================= DESKTOP NAV ================= -->
+<!-- FIX: Z-Index z-[100] agar pasti di atas noise (z-50) -->
 <nav class="hidden md:flex fixed top-6 left-0 right-0 z-[100] justify-center pointer-events-none">
     <div class="glass-panel bg-white/80 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 rounded-full px-6 py-3 flex items-center gap-8 shadow-xl shadow-black/5 relative pointer-events-auto">
+        <!-- Logo -->
         <a href="/" aria-label="Beranda IDGO" class="font-display font-bold text-lg tracking-tight hover:scale-105 transition-transform">
             IDGO<span class="text-brand-500">.</span>
         </a>
         
         <div class="h-4 w-px bg-zinc-300 dark:bg-zinc-700"></div>
         
-        <div class="flex gap-6 text-sm font-medium text-zinc-600 dark:text-zinc-400">
+        <!-- Menu Links -->
+        <div class="flex gap-6 text-sm font-medium text-zinc-600 dark:text-zinc-400 items-center">
             <a href="/about" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Tentang</a>
             <a href="/work" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Portofolio</a>
             <a href="/services" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Layanan</a>
+            
+            <!-- TOOLS DROPDOWN (ACTIVE) -->
+            <div class="relative group">
+                <button class="flex items-center gap-1 hover:text-zinc-900 dark:hover:text-white transition-colors font-bold text-brand-600 dark:text-brand-400 py-2">
+                    Tools
+                    <i class="ph-bold ph-caret-down text-xs mt-0.5"></i>
+                </button>
+                
+                <!-- Dropdown Menu -->
+                <div class="absolute top-full left-1/2 -translate-x-1/2 pt-6 hidden group-hover:block w-72">
+                    <div class="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl p-2 flex flex-col gap-1 text-left ring-1 ring-black/5">
+                        
+                        <!-- 1. Estimator (Active) -->
+                        <a href="/tools/estimator" class="flex items-start gap-3 p-3 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors group/item">
+                            <div class="mt-1 p-1.5 bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 rounded-lg group-hover/item:scale-110 transition-transform">
+                                <i class="ph-fill ph-calculator"></i>
+                            </div>
+                            <div>
+                                <span class="block text-sm font-bold text-zinc-900 dark:text-white">Estimator Harga</span>
+                                <span class="block text-xs text-zinc-500">Hitung biaya website</span>
+                            </div>
+                        </a>
+
+                        <div class="h-px bg-zinc-100 dark:bg-zinc-800 my-1"></div>
+
+                        <!-- 2. Scope Generator (Active) -->
+                        <a href="/tools/scope" class="flex items-start gap-3 p-3 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors group/item">
+                            <div class="mt-1 p-1.5 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-lg group-hover/item:scale-110 transition-transform">
+                                <i class="ph-fill ph-list-checks"></i>
+                            </div>
+                            <div>
+                                <span class="block text-sm font-bold text-zinc-900 dark:text-white">Scope Generator</span>
+                                <span class="block text-xs text-zinc-500">Buat list fitur proyek</span>
+                            </div>
+                        </a>
+
+                        <!-- 3. Estimator Maintenance (Active) -->
+                        <a href="/tools/maintenance" class="flex items-start gap-3 p-3 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors group/item">
+                            <div class="mt-1 p-1.5 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-lg group-hover/item:scale-110 transition-transform">
+                                <i class="ph-fill ph-wrench"></i>
+                            </div>
+                            <div>
+                                <span class="block text-sm font-bold text-zinc-900 dark:text-white">Maintenance Cost</span>
+                                <span class="block text-xs text-zinc-500">Biaya rawat website</span>
+                            </div>
+                        </a>
+
+                        <!-- 4. Time Calculator (Active) -->
+                        <a href="/tools/time" class="flex items-start gap-3 p-3 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors group/item">
+                            <div class="mt-1 p-1.5 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-lg group-hover/item:scale-110 transition-transform">
+                                <i class="ph-fill ph-clock-countdown"></i>
+                            </div>
+                            <div>
+                                <span class="block text-sm font-bold text-zinc-900 dark:text-white">Kalkulator Waktu</span>
+                                <span class="block text-xs text-zinc-500">Estimasi lama pengerjaan</span>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
             <a href="/blog" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Blog</a>
         </div>
         
         <div class="h-4 w-px bg-zinc-300 dark:bg-zinc-700"></div>
         
+        <!-- Actions -->
         <div class="flex items-center gap-2">
-            <!-- Added aria-label -->
+            <!-- Theme Toggle -->
             <button id="theme-toggle-desktop" aria-label="Ganti Tema Gelap/Terang" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors">
                 <i class="ph ph-moon text-lg theme-icon"></i>
             </button>
 
+            <!-- Roadmap Bell -->
             <div class="relative">
-                <!-- Added aria-label -->
                 <button id="roadmap-btn-desk" aria-label="Lihat Update Roadmap" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors relative cursor-pointer">
                     <i class="ph ph-bell text-lg"></i>
                     <span class="absolute top-1 right-2 w-2 h-2 bg-red-500 rounded-full border border-white dark:border-zinc-900 animate-pulse"></span>
                 </button>
                 
+                <!-- DROPDOWN DESKTOP -->
                 <div id="roadmap-dropdown-desk" class="hidden absolute top-14 right-0 w-80 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl p-4 z-[110]">
                     <div class="flex justify-between items-center mb-4 pb-2 border-b border-zinc-100 dark:border-zinc-800">
                         <h3 class="font-display font-bold text-sm text-zinc-900 dark:text-white">Update Terbaru</h3>
@@ -43,6 +115,7 @@ const pathname = new URL(Astro.request.url).pathname;
                     </div>
                     
                     <div class="space-y-4 max-h-[60vh] overflow-y-auto custom-scrollbar">
+                        <!-- In Progress -->
                         <div>
                             <h4 class="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-2">Sedang Dikerjakan</h4>
                             {roadmapData.inProgress.map(item => (
@@ -55,6 +128,8 @@ const pathname = new URL(Astro.request.url).pathname;
                                 </div>
                             ))}
                         </div>
+                        
+                        <!-- Completed -->
                         <div>
                             <h4 class="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-2">Selesai</h4>
                             <ul class="space-y-2">
@@ -77,14 +152,12 @@ const pathname = new URL(Astro.request.url).pathname;
 
 <!-- 1. MOBILE TOP BAR -->
 <div class="md:hidden fixed top-0 w-full z-[100] flex justify-between items-center p-6 bg-zinc-50/90 dark:bg-zinc-950/90 backdrop-blur-md border-b border-zinc-200/50 dark:border-zinc-800/50 transition-colors">
-    <a href="/" aria-label="Beranda" class="font-display font-bold text-xl text-zinc-900 dark:text-white">IDGO<span class="text-brand-500">.</span></a>
+    <a href="/" aria-label="Beranda IDGO" class="font-display font-bold text-xl text-zinc-900 dark:text-white">IDGO<span class="text-brand-500">.</span></a>
     
     <div class="flex items-center gap-2">
-        <!-- Added aria-label -->
         <button id="theme-toggle-mobile" aria-label="Ganti Tema" class="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-900 flex items-center justify-center text-zinc-900 dark:text-white transition-colors">
             <i class="ph ph-moon text-xl theme-icon"></i>
         </button>
-        <!-- Added aria-label -->
         <button id="roadmap-btn-mobile" aria-label="Lihat Update" class="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-900 flex items-center justify-center relative text-zinc-900 dark:text-white transition-colors">
             <i class="ph ph-bell text-xl"></i>
             <span class="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full border border-white dark:border-zinc-900 animate-pulse"></span>
@@ -92,25 +165,25 @@ const pathname = new URL(Astro.request.url).pathname;
     </div>
 </div>
 
-<!-- 2. MOBILE BOTTOM DOCK (Fix Missing Labels) -->
-<div class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-full max-w-[320px]">
+<!-- 2. MOBILE BOTTOM DOCK -->
+<div class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-full max-w-[350px]">
     <div class="bg-zinc-900/90 dark:bg-zinc-800/90 backdrop-blur-xl border border-white/10 p-2 rounded-full flex justify-between items-center shadow-2xl">
-        <!-- Added aria-label to ALL links -->
-        <a href="/" aria-label="Beranda" class="w-12 h-12 rounded-full flex flex-col items-center justify-center text-zinc-400 hover:bg-white/10 hover:text-white transition-colors">
+        <a href="/" aria-label="Beranda" class="w-10 h-10 rounded-full flex flex-col items-center justify-center text-zinc-400 hover:bg-white/10 hover:text-white transition-colors">
             <i class="ph ph-house text-xl"></i>
         </a>
-        <a href="/work" aria-label="Portofolio" class="w-12 h-12 rounded-full flex flex-col items-center justify-center text-zinc-400 hover:bg-white/10 hover:text-white transition-colors">
+        <a href="/work" aria-label="Portofolio" class="w-10 h-10 rounded-full flex flex-col items-center justify-center text-zinc-400 hover:bg-white/10 hover:text-white transition-colors">
             <i class="ph ph-briefcase text-xl"></i>
         </a>
         
-        <a href="/about" aria-label="Tentang Saya" class="w-14 h-14 bg-brand-600 rounded-full flex items-center justify-center text-white -mt-6 border-4 border-zinc-50 dark:border-zinc-950 shadow-lg transform active:scale-95 transition-transform">
-            <i class="ph ph-user text-2xl font-bold"></i>
-        </a>
+        <!-- Center Action: TOOLS MENU -->
+        <button id="tools-btn-mobile" aria-label="Menu Tools" class="w-14 h-14 bg-brand-600 rounded-full flex items-center justify-center text-white -mt-6 border-4 border-zinc-50 dark:border-zinc-950 shadow-lg transform active:scale-95 transition-transform cursor-pointer">
+            <i class="ph-bold ph-squares-four text-2xl"></i>
+        </button>
         
-        <a href="/services" aria-label="Layanan" class="w-12 h-12 rounded-full flex flex-col items-center justify-center text-zinc-400 hover:bg-white/10 hover:text-white transition-colors">
+        <a href="/services" aria-label="Layanan" class="w-10 h-10 rounded-full flex flex-col items-center justify-center text-zinc-400 hover:bg-white/10 hover:text-white transition-colors">
             <i class="ph ph-lightning text-xl"></i>
         </a>
-        <a href="/blog" aria-label="Blog" class="w-12 h-12 rounded-full flex flex-col items-center justify-center text-zinc-400 hover:bg-white/10 hover:text-white transition-colors">
+        <a href="/blog" aria-label="Blog" class="w-10 h-10 rounded-full flex flex-col items-center justify-center text-zinc-400 hover:bg-white/10 hover:text-white transition-colors">
             <i class="ph ph-article text-xl"></i>
         </a>
     </div>
@@ -151,6 +224,46 @@ const pathname = new URL(Astro.request.url).pathname;
                 </div>
             </div>
             <button id="close-roadmap-mobile" class="w-full mt-6 bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 py-3.5 rounded-xl font-bold flex-shrink-0">Tutup</button>
+        </div>
+    </div>
+</div>
+
+<!-- 4. MOBILE TOOLS MODAL (NEW) -->
+<div id="tools-modal-mobile" class="hidden md:hidden relative z-[110]" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 z-[110] flex items-end justify-center pointer-events-none">
+        <div id="tools-backdrop" class="absolute inset-0 bg-black/40 backdrop-blur-sm pointer-events-auto transition-opacity duration-300 opacity-0"></div>
+        <div id="tools-sheet" class="bg-white dark:bg-zinc-900 w-full max-w-md mx-4 mb-4 rounded-3xl p-6 pointer-events-auto shadow-2xl border border-zinc-200 dark:border-zinc-800 transform translate-y-full transition-transform duration-300 flex flex-col">
+            <div class="w-12 h-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-full mx-auto mb-6 flex-shrink-0"></div>
+            <div class="flex justify-between items-center mb-6 flex-shrink-0">
+                <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white">Tools & Utilities</h3>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                 <a href="/tools/estimator" class="flex flex-col items-center gap-3 p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800 active:scale-95 transition-transform">
+                    <div class="w-12 h-12 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-2xl">
+                        <i class="ph-fill ph-calculator"></i>
+                    </div>
+                    <span class="text-sm font-bold text-zinc-900 dark:text-white text-center">Estimator Harga</span>
+                </a>
+                <a href="/tools/scope" class="flex flex-col items-center gap-3 p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800 active:scale-95 transition-transform">
+                    <div class="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center text-2xl">
+                        <i class="ph-fill ph-list-checks"></i>
+                    </div>
+                    <span class="text-sm font-bold text-zinc-900 dark:text-white text-center">Scope Generator</span>
+                </a>
+                <a href="/tools/maintenance" class="flex flex-col items-center gap-3 p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800 active:scale-95 transition-transform">
+                    <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center text-2xl">
+                        <i class="ph-fill ph-wrench"></i>
+                    </div>
+                    <span class="text-sm font-bold text-zinc-900 dark:text-white text-center">Maintenance Cost</span>
+                </a>
+                <a href="/tools/time" class="flex flex-col items-center gap-3 p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800 active:scale-95 transition-transform">
+                    <div class="w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center text-2xl">
+                        <i class="ph-fill ph-clock-countdown"></i>
+                    </div>
+                    <span class="text-sm font-bold text-zinc-900 dark:text-white text-center">Time Calculator</span>
+                </a>
+            </div>
+            <button id="close-tools-mobile" class="w-full mt-6 bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 py-3.5 rounded-xl font-bold flex-shrink-0">Tutup</button>
         </div>
     </div>
 </div>
@@ -208,36 +321,67 @@ const pathname = new URL(Astro.request.url).pathname;
     }
 
     // --- ROADMAP MOBILE ---
-    const mobBtn = document.getElementById('roadmap-btn-mobile');
-    const mobModal = document.getElementById('roadmap-modal-mobile');
-    const mobBackdrop = document.getElementById('roadmap-backdrop');
-    const mobSheet = document.getElementById('roadmap-sheet');
-    const mobClose = document.getElementById('close-roadmap-mobile');
+    const roadmapToggle = (show) => {
+        const modal = document.getElementById('roadmap-modal-mobile');
+        const backdrop = document.getElementById('roadmap-backdrop');
+        const sheet = document.getElementById('roadmap-sheet');
+        
+        if (!modal || !backdrop || !sheet) return;
 
-    const toggleMobileRoadmap = () => {
-        if (!mobModal || !mobBackdrop || !mobSheet) return;
-
-        if (mobModal.classList.contains('hidden')) {
-            // Open
-            mobModal.classList.remove('hidden');
+        if (show) {
+            modal.classList.remove('hidden');
             requestAnimationFrame(() => {
-                mobBackdrop.classList.remove('opacity-0');
-                mobSheet.classList.remove('translate-y-full');
+                backdrop.classList.remove('opacity-0');
+                sheet.classList.remove('translate-y-full');
             });
         } else {
-            // Close
-            mobBackdrop.classList.add('opacity-0');
-            mobSheet.classList.add('translate-y-full');
-            
+            backdrop.classList.add('opacity-0');
+            sheet.classList.add('translate-y-full');
             setTimeout(() => {
-                mobModal.classList.add('hidden');
+                modal.classList.add('hidden');
             }, 300);
         }
     };
 
-    if(mobBtn) mobBtn.addEventListener('click', toggleMobileRoadmap);
-    if(mobBackdrop) mobBackdrop.addEventListener('click', toggleMobileRoadmap);
-    if(mobClose) mobClose.addEventListener('click', toggleMobileRoadmap);
+    const roadmapBtn = document.getElementById('roadmap-btn-mobile');
+    const roadmapBackdrop = document.getElementById('roadmap-backdrop');
+    const roadmapClose = document.getElementById('close-roadmap-mobile');
+
+    if(roadmapBtn) roadmapBtn.addEventListener('click', () => roadmapToggle(true));
+    if(roadmapBackdrop) roadmapBackdrop.addEventListener('click', () => roadmapToggle(false));
+    if(roadmapClose) roadmapClose.addEventListener('click', () => roadmapToggle(false));
+
+    // --- TOOLS MOBILE (NEW) ---
+    const toolsToggle = (show) => {
+        const modal = document.getElementById('tools-modal-mobile');
+        const backdrop = document.getElementById('tools-backdrop');
+        const sheet = document.getElementById('tools-sheet');
+        
+        if (!modal || !backdrop || !sheet) return;
+
+        if (show) {
+            modal.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                backdrop.classList.remove('opacity-0');
+                sheet.classList.remove('translate-y-full');
+            });
+        } else {
+            backdrop.classList.add('opacity-0');
+            sheet.classList.add('translate-y-full');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    };
+
+    const toolsBtn = document.getElementById('tools-btn-mobile');
+    const toolsBackdrop = document.getElementById('tools-backdrop');
+    const toolsClose = document.getElementById('close-tools-mobile');
+
+    if(toolsBtn) toolsBtn.addEventListener('click', () => toolsToggle(true));
+    if(toolsBackdrop) toolsBackdrop.addEventListener('click', () => toolsToggle(false));
+    if(toolsClose) toolsClose.addEventListener('click', () => toolsToggle(false));
+
 </script>
 
 <style>

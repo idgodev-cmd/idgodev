@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ScopeGenerator from '../../components/tools/ScopeGenerator.jsx';
+---
+
+<BaseLayout title="Scope of Work Generator" description="Buat daftar lingkup pekerjaan proyek website dengan cepat.">
+    <div class="pt-20 md:pt-32 px-6 mb-32">
+        <div class="text-center mb-16 max-w-3xl mx-auto">
+            <span className="text-purple-600 font-bold tracking-wider text-sm uppercase mb-2 block">Developer Tools</span>
+            <h1 class="font-display text-4xl md:text-6xl font-bold mb-6 text-zinc-900 dark:text-white">
+                Scope of Work <span class="text-purple-600">Generator.</span>
+            </h1>
+            <p class="text-lg text-zinc-500 dark:text-zinc-400">
+                Checklist fitur untuk mendefinisikan batasan proyek agar tidak terjadi <em>scope creep</em>.
+            </p>
+        </div>
+        <div class="max-w-6xl mx-auto">
+            <ScopeGenerator client:load />
+        </div>
+    </div>
+</BaseLayout>
