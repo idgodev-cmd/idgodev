@@ -19,9 +19,8 @@
   font-family: "Phosphor";
   font-style: normal;
   font-weight: 400;
-  src: url("@phosphor-icons/web/src/regular/Phosphor.woff2") format("woff2"),
-       url("@phosphor-icons/web/src/regular/Phosphor.woff") format("woff"),
-       url("@phosphor-icons/web/src/regular/Phosphor.ttf") format("truetype");
+  /* UPDATE: Load dari folder public agar bisa di-preload di HTML Head */
+  src: url("/fonts/Phosphor.woff2") format("woff2");
   font-display: swap; /* INI KUNCINYA */
 }
 
@@ -43,9 +42,8 @@
   font-family: "Phosphor-Fill";
   font-style: normal;
   font-weight: 400;
-  src: url("@phosphor-icons/web/src/fill/Phosphor-Fill.woff2") format("woff2"),
-       url("@phosphor-icons/web/src/fill/Phosphor-Fill.woff") format("woff"),
-       url("@phosphor-icons/web/src/fill/Phosphor-Fill.ttf") format("truetype");
+  /* UPDATE: Load dari folder public agar bisa di-preload di HTML Head */
+  src: url("/fonts/Phosphor-Fill.woff2") format("woff2");
   font-display: swap; /* INI KUNCINYA */
 }
 
@@ -67,6 +65,7 @@
   font-family: "Phosphor-Bold";
   font-style: normal;
   font-weight: 700;
+  /* Opsional: Copy juga bold jika dipakai, atau biarkan fallback */
   src: url("@phosphor-icons/web/src/bold/Phosphor-Bold.woff2") format("woff2"),
        url("@phosphor-icons/web/src/bold/Phosphor-Bold.woff") format("woff"),
        url("@phosphor-icons/web/src/bold/Phosphor-Bold.ttf") format("truetype");
