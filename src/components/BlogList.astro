@@ -4,22 +4,22 @@ import { getCollection } from 'astro:content';
 const allPosts = await getCollection('blog');
 const recentPosts = allPosts
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-    .slice(0, 3); // Ambil 3 artikel terbaru
+    .slice(0, 3);
 ---
 
 <section id="blog" class="mb-32">
     <div class="flex justify-between items-end mb-12">
-        <h2 class="font-display text-4xl md:text-5xl font-bold">Tulisan Terbaru</h2>
-        <a href="/blog" class="text-zinc-500 hover:text-brand-600 transition-colors hidden md:block">Lihat Semua</a>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-zinc-900 dark:text-white">Tulisan Terbaru</h2>
+        <a href="/blog" class="text-zinc-600 dark:text-zinc-400 hover:text-brand-600 transition-colors hidden md:block font-medium">Lihat Semua</a>
     </div>
 
     <div class="flex flex-col border-t border-zinc-200 dark:border-zinc-800">
         {recentPosts.map((post, index) => (
-            <a href={`/blog/${post.slug}`} class="group flex flex-col md:flex-row md:items-center justify-between py-8 border-b border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 transition-colors px-4 -mx-4 rounded-xl">
+            <a href={`/blog/${post.slug}`} aria-label={`Baca artikel: ${post.data.title}`} class="group flex flex-col md:flex-row md:items-center justify-between py-8 border-b border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 transition-colors px-4 -mx-4 rounded-xl">
                 
                 <div class="flex gap-6 items-baseline">
-                    <!-- Nomor Urut (01, 02, dst) -->
-                    <span class="font-mono text-sm text-zinc-400">
+                    <!-- Fixed Contrast: text-zinc-500 (bukan 400) -->
+                    <span class="font-mono text-sm text-zinc-500 dark:text-zinc-500 font-bold">
                         {(index + 1).toString().padStart(2, '0')}
                     </span>
                     
@@ -27,7 +27,7 @@ const recentPosts = allPosts
                         <h3 class="text-xl font-bold mb-1 text-zinc-900 dark:text-white group-hover:text-brand-500 transition-colors">
                             {post.data.title}
                         </h3>
-                        <p class="text-zinc-500 text-sm">
+                        <p class="text-zinc-600 dark:text-zinc-400 text-sm">
                             {post.data.category} • {post.data.pubDate.toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' })}
                         </p>
                     </div>
