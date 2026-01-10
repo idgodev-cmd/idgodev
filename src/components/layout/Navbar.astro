@@ -6,17 +6,14 @@ const pathname = new URL(Astro.request.url).pathname;
 ---
 
 <!-- ================= DESKTOP NAV ================= -->
-<!-- Z-Index 100 agar di atas noise -->
 <nav class="hidden md:flex fixed top-6 left-0 right-0 z-[100] justify-center pointer-events-none">
     <div class="glass-panel bg-white/80 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 rounded-full px-6 py-3 flex items-center gap-8 shadow-xl shadow-black/5 relative pointer-events-auto">
-        <!-- Logo -->
-        <a href="/" aria-label="Kembali ke Beranda" class="font-display font-bold text-lg tracking-tight hover:scale-105 transition-transform">
+        <a href="/" aria-label="Beranda idgo" class="font-display font-bold text-lg tracking-tight hover:scale-105 transition-transform">
             idgo<span class="text-brand-500">.</span>
         </a>
         
         <div class="h-4 w-px bg-zinc-300 dark:bg-zinc-700"></div>
         
-        <!-- Menu Links -->
         <div class="flex gap-6 text-sm font-medium text-zinc-600 dark:text-zinc-400">
             <a href="/about" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Tentang</a>
             <a href="/work" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Portofolio</a>
@@ -26,22 +23,19 @@ const pathname = new URL(Astro.request.url).pathname;
         
         <div class="h-4 w-px bg-zinc-300 dark:bg-zinc-700"></div>
         
-        <!-- Actions -->
         <div class="flex items-center gap-2">
-            <!-- Theme Toggle -->
+            <!-- Added aria-label -->
             <button id="theme-toggle-desktop" aria-label="Ganti Tema Gelap/Terang" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors">
                 <i class="ph ph-moon text-lg theme-icon"></i>
             </button>
 
-            <!-- Roadmap Bell -->
             <div class="relative">
+                <!-- Added aria-label -->
                 <button id="roadmap-btn-desk" aria-label="Lihat Update Roadmap" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors relative cursor-pointer">
                     <i class="ph ph-bell text-lg"></i>
-                    <!-- Dot Merah -->
                     <span class="absolute top-1 right-2 w-2 h-2 bg-red-500 rounded-full border border-white dark:border-zinc-900 animate-pulse"></span>
                 </button>
                 
-                <!-- DROPDOWN DESKTOP -->
                 <div id="roadmap-dropdown-desk" class="hidden absolute top-14 right-0 w-80 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl p-4 z-[110]">
                     <div class="flex justify-between items-center mb-4 pb-2 border-b border-zinc-100 dark:border-zinc-800">
                         <h3 class="font-display font-bold text-sm text-zinc-900 dark:text-white">Update Terbaru</h3>
@@ -49,7 +43,6 @@ const pathname = new URL(Astro.request.url).pathname;
                     </div>
                     
                     <div class="space-y-4 max-h-[60vh] overflow-y-auto custom-scrollbar">
-                        <!-- In Progress -->
                         <div>
                             <h4 class="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-2">Sedang Dikerjakan</h4>
                             {roadmapData.inProgress.map(item => (
@@ -62,13 +55,11 @@ const pathname = new URL(Astro.request.url).pathname;
                                 </div>
                             ))}
                         </div>
-                        
-                        <!-- Completed -->
                         <div>
                             <h4 class="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-2">Selesai</h4>
                             <ul class="space-y-2">
                                 {roadmapData.completed.map(item => (
-                                    <li class="flex items-start gap-3 text-sm text-zinc-600 dark:text-zinc-300">
+                                    <li class="flex items-start gap-3 text-sm text-zinc-600 dark:text-zinc-400">
                                         <i class="ph-fill ph-check-circle text-green-500 mt-0.5 flex-shrink-0"></i>
                                         <span>{item}</span>
                                     </li>
@@ -86,12 +77,14 @@ const pathname = new URL(Astro.request.url).pathname;
 
 <!-- 1. MOBILE TOP BAR -->
 <div class="md:hidden fixed top-0 w-full z-[100] flex justify-between items-center p-6 bg-zinc-50/90 dark:bg-zinc-950/90 backdrop-blur-md border-b border-zinc-200/50 dark:border-zinc-800/50 transition-colors">
-    <a href="/" aria-label="Beranda idgo" class="font-display font-bold text-xl text-zinc-900 dark:text-white">idgo<span class="text-brand-500">.</span></a>
+    <a href="/" aria-label="Beranda" class="font-display font-bold text-xl text-zinc-900 dark:text-white">idgo<span class="text-brand-500">.</span></a>
     
     <div class="flex items-center gap-2">
+        <!-- Added aria-label -->
         <button id="theme-toggle-mobile" aria-label="Ganti Tema" class="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-900 flex items-center justify-center text-zinc-900 dark:text-white transition-colors">
             <i class="ph ph-moon text-xl theme-icon"></i>
         </button>
+        <!-- Added aria-label -->
         <button id="roadmap-btn-mobile" aria-label="Lihat Update" class="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-900 flex items-center justify-center relative text-zinc-900 dark:text-white transition-colors">
             <i class="ph ph-bell text-xl"></i>
             <span class="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full border border-white dark:border-zinc-900 animate-pulse"></span>
@@ -102,6 +95,7 @@ const pathname = new URL(Astro.request.url).pathname;
 <!-- 2. MOBILE BOTTOM DOCK (Fix Missing Labels) -->
 <div class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-full max-w-[320px]">
     <div class="bg-zinc-900/90 dark:bg-zinc-800/90 backdrop-blur-xl border border-white/10 p-2 rounded-full flex justify-between items-center shadow-2xl">
+        <!-- Added aria-label to ALL links -->
         <a href="/" aria-label="Beranda" class="w-12 h-12 rounded-full flex flex-col items-center justify-center text-zinc-400 hover:bg-white/10 hover:text-white transition-colors">
             <i class="ph ph-house text-xl"></i>
         </a>
@@ -109,9 +103,7 @@ const pathname = new URL(Astro.request.url).pathname;
             <i class="ph ph-briefcase text-xl"></i>
         </a>
         
-        <!-- Center Action -->
         <a href="/about" aria-label="Tentang Saya" class="w-14 h-14 bg-brand-600 rounded-full flex items-center justify-center text-white -mt-6 border-4 border-zinc-50 dark:border-zinc-950 shadow-lg transform active:scale-95 transition-transform">
-            <!-- Ganti Icon Plus jadi User/Info kalau arahnya ke About -->
             <i class="ph ph-user text-2xl font-bold"></i>
         </a>
         

@@ -18,7 +18,7 @@ const recentPosts = allPosts
             <a href={`/blog/${post.slug}`} aria-label={`Baca artikel: ${post.data.title}`} class="group flex flex-col md:flex-row md:items-center justify-between py-8 border-b border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 transition-colors px-4 -mx-4 rounded-xl">
                 
                 <div class="flex gap-6 items-baseline">
-                    <!-- Fixed Contrast: text-zinc-500 (bukan 400) -->
+                    <!-- Fixed Contrast: text-zinc-500 (was 400) -->
                     <span class="font-mono text-sm text-zinc-500 dark:text-zinc-500 font-bold">
                         {(index + 1).toString().padStart(2, '0')}
                     </span>
