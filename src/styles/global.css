@@ -1,4 +1,5 @@
-/* 1. Import Fonts via Package */
+/* 1. Import Fonts via Package (Lebih Cepat dari CDN) */
+/* Fontsource biasanya sudah auto-swap, tapi icon perlu manual */
 @import "@fontsource/space-grotesk/300.css";
 @import "@fontsource/space-grotesk/400.css";
 @import "@fontsource/space-grotesk/500.css";
@@ -10,14 +11,88 @@
 @import "@fontsource/inter/500.css";
 @import "@fontsource/inter/600.css";
 
-/* CATATAN: Icons di-import di BaseLayout.astro agar tidak error di PostCSS */
+/* 2. Manual Font Face untuk Phosphor Icons (FIX: font-display: swap) */
+/* Kita ganti @import dengan definisi manual agar bisa tambah 'font-display: swap' */
 
+/* Regular Icons */
+@font-face {
+  font-family: "Phosphor";
+  font-style: normal;
+  font-weight: 400;
+  src: url("@phosphor-icons/web/src/regular/Phosphor.woff2") format("woff2"),
+       url("@phosphor-icons/web/src/regular/Phosphor.woff") format("woff"),
+       url("@phosphor-icons/web/src/regular/Phosphor.ttf") format("truetype");
+  font-display: swap; /* INI KUNCINYA */
+}
+
+.ph {
+  font-family: "Phosphor" !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* Fill Icons (Solid) */
+@font-face {
+  font-family: "Phosphor-Fill";
+  font-style: normal;
+  font-weight: 400;
+  src: url("@phosphor-icons/web/src/fill/Phosphor-Fill.woff2") format("woff2"),
+       url("@phosphor-icons/web/src/fill/Phosphor-Fill.woff") format("woff"),
+       url("@phosphor-icons/web/src/fill/Phosphor-Fill.ttf") format("truetype");
+  font-display: swap; /* INI KUNCINYA */
+}
+
+.ph-fill {
+  font-family: "Phosphor-Fill" !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* Bold Icons */
+@font-face {
+  font-family: "Phosphor-Bold";
+  font-style: normal;
+  font-weight: 700;
+  src: url("@phosphor-icons/web/src/bold/Phosphor-Bold.woff2") format("woff2"),
+       url("@phosphor-icons/web/src/bold/Phosphor-Bold.woff") format("woff"),
+       url("@phosphor-icons/web/src/bold/Phosphor-Bold.ttf") format("truetype");
+  font-display: swap; /* INI KUNCINYA */
+}
+
+.ph-bold {
+  font-family: "Phosphor-Bold" !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* Tailwind Directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  /* FIX: Memastikan Heading selalu punya warna kontras (Hitam di Light, Putih di Dark) */
+  /* Default heading colors for better contrast */
   h1, h2, h3, h4, h5, h6 {
     @apply text-zinc-900 dark:text-white;
   }
@@ -30,16 +105,15 @@
   }
   
   /* Text Stroke (Outline Text) */
-  /* FIX: Dipertebal warnanya untuk Light Mode agar terlihat jelas */
   .text-stroke {
-    -webkit-text-stroke: 1px rgba(24, 24, 27, 0.8); /* Zinc-900 dengan opacity tinggi */
+    -webkit-text-stroke: 1px rgba(24, 24, 27, 0.8);
     color: transparent;
   }
   .dark .text-stroke {
     -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
   }
 
-  /* Utility untuk View Switching */
+  /* Utility untuk View Switching (jika masih dipakai) */
   .view-section {
     @apply hidden;
   }
